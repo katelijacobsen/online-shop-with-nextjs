@@ -7,10 +7,10 @@ const Header = () => {
         <nav>
             <ul className="flex gap-4 flex-col  m-2 md:flex-row">
                 <li>
-                    <Link href="">Home</Link>
+                    <Link href="/">Home</Link>
                 </li>
                 <li>
-                    <Link href="">Products</Link>
+                    <Link href="/products">Products</Link>
                 </li>
             </ul>
         </nav>
