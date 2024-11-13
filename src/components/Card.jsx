@@ -8,7 +8,7 @@ const Card = ({ data }) => {
 
   return (
     <>
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
+      <div className="max-w-sm border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
         <div className="flex justify-end px-4 pt-4">
           <Image
             src={
@@ -20,7 +20,7 @@ const Card = ({ data }) => {
             width={500}
             height={500}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="w-30 h-36 object-contain bg-white"
+            className="w-30 h-36 object-contain "
           />
         </div>
         <div className="p-5">
