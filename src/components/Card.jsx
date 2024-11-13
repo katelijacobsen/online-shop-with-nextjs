@@ -23,14 +23,27 @@ const Products = () => {
   }, []);
 
   //Search after Product
+  const [search, setSearch] = useState("");
+  //funtion for the search input
+  //Prevent Default
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  //Use for the hook down as next step:
   useEffect(() => {
     const fetchSearchProducts = async () => {
-        const res = await fetch ('https://dummyjson.com/products/search?q=phone');
-        const search = await res.json();
-        setData(search.products);
+      const res = await fetch("https://dummyjson.com/products/search?q=phone");
+      const search = await res.json();
+      setData(search.products);
     };
-    fetchSearchProducts();
-  })
+
+    if (search) {
+      fetchSearchProducts();
+    } else fetchSearchProducts();
+  }, [search]);
+
+
+
 
   //Toggle Button
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -57,12 +70,19 @@ const Products = () => {
           </button>
           <div className="relative w-full">
             <input
+              value={search}
+              onChange={handleSearch}
               type="text"
               id="productSearch"
               placeholder="Search for a product"
               className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
             />
-            <button className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button
+              onClick={() =>
+                setSearchQuery(document.getElementById("productSearch").value)
+              }
+              className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
               <IoSearch className="text-xl" />
             </button>
           </div>
@@ -107,8 +127,7 @@ const Products = () => {
   );
 };
 const Card = ({ data }) => {
-
- // Note : Når du skal lave en Image-Komponent så husk at give den en array.   
+  // Note : Når du skal lave en Image-Komponent så husk at give den en array.
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
