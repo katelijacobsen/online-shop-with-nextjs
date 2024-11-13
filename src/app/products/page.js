@@ -1,44 +1,105 @@
 "use client";
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import { MdFoodBank } from "react-icons/md";
-import { MdPets } from "react-icons/md";
-import { GiLipstick } from "react-icons/gi";
-import { MdOutlineChair } from "react-icons/md";
 import { LuFilter } from "react-icons/lu";
 import Card from "@/components/Card";
+import CategoryItem from "@/components/CategoryItem";
+import { IoMdPhonePortrait } from "react-icons/io";
+import { FaTabletAlt } from "react-icons/fa";
+import { LiaLaptopSolid } from "react-icons/lia";
+
+const categories = [
+  {
+    name: "Smartphones",
+    tag: "smartphones",
+    icon: <IoMdPhonePortrait />,
+  },
+  {
+    name: "Tablets",
+    tag: "tablets",
+    icon: <FaTabletAlt />,
+  },
+  {
+    name: "Laptops",
+    tag: "laptops",
+    icon: <LiaLaptopSolid />,
+  },
+];
 
 const Products = () => {
-  //Fetch Data
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const fetchAllProducts = async () => {
-      const res = await fetch('https://dummyjson.com/products');
+    const _fetchProductsByCategory = async (tag) => {
+      const res = await fetch(
+        `https://dummyjson.com/products/category/${tag}?limit=0`
+      );
       const data = await res.json();
-      console.log(data);
-      setData(data.products);
+      return data.products;
     };
-    fetchAllProducts();
-  }, []);
 
-  //Search after Product
-  const [search, setSearch] = useState("");
+    const fetchAllProducts = async () => {
+      let promises = [];
+      categories.forEach((c) => {
+        promises.push(_fetchProductsByCategory(c.tag));
+      });
+      Promise.all(promises).then((results) => {
+        console.log(results);
+
+        let allProducts = [];
+        results.map((products) => {
+          products.forEach((p) => {
+            allProducts.push(p);
+          });
+        });
+        console.log(allProducts);
+
+        let unique = [];
+        allProducts.forEach((p) => {
+          if (unique.findIndex((x) => x.id === p.id) === -1) {
+            unique.push(p);
+          }
+        });
+
+        setData(unique);
+      });
+    };
+
+    const fetchProductsByCategory = async (tag) => {
+      const products = await _fetchProductsByCategory(tag);
+      setData(products);
+    };
+
+    if (selectedCategory === "") {
+      fetchAllProducts();
+    } else {
+      fetchProductsByCategory(selectedCategory);
+    }
+  }, [selectedCategory]);
+
   //funtion for the search input
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-  //Use for the hook down as next step:
-  useEffect(() => {
-    const fetchSearchProducts = async () => {
-      const res = await fetch(
-        `https://dummyjson.com/products/search?q=${search}`
-      );
-      const data = await res.json();
-      setData(data.products);
-    };
-    fetchSearchProducts();
-  }, [search]);
+
+  //Filter Funktion
+  const filteredWithSearch = (data) => {
+    if (search === "") {
+      return data;
+    }
+
+    return data.filter(p => {
+      let include = false;
+      if(p.title.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
+      else if(p.description.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
+      else if(p.category.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
+      else if(p.brand.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
+      return include;
+    });
+  };
 
   //Toggle Button
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -46,6 +107,7 @@ const Products = () => {
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
   };
+
 
   return (
     <>
@@ -77,36 +139,58 @@ const Products = () => {
         {isDropdownVisible && (
           <div className="z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul>
-              <li className="hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white hover:rounded-lg py-1 px-2">
+              {categories.map((c, i) => {
+                return (
+                  <CategoryItem
+                    key={i}
+                    category={c}
+                    onSelect={(cat) => {
+                      if (cat.tag === selectedCategory) {
+                        setSelectedCategory("");
+                      } else {
+                        setSelectedCategory(cat.tag);
+                      }
+                    }}
+                    checked={selectedCategory === c.tag}
+                  />
+                );
+              })}
+              {/* <CategoryItem
+                category="Tablets"
+                value="tablets"
+                icon={<FaTabletAlt />}
+                onSelect={setSelectedCategory}
+              />
+              <CategoryItem
+                category="Laptops"
+                value="laptops"
+                icon={<LiaLaptopSolid />}
+                onSelect={setSelectedCategory}
+              /> */}
+              {/* <li className="hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white hover:rounded-lg py-1 px-2">
                 <button className="inline-flex items-center text-md">
                   <MdFoodBank className="m-2" />
-                  Food
+                  Smartphones
                 </button>
               </li>
               <li className="hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white py-1 px-2">
                 <button className="inline-flex items-center text-md">
                   <GiLipstick className="m-2" />
-                  Make Up
-                </button>
-              </li>
-              <li className="hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white py-1 px-2">
-                <button className="inline-flex items-center text-md">
-                  <MdPets className="m-2" />
-                  For Pets
+                  Tablets
                 </button>
               </li>
               <li className="hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white hover:rounded-lg py-1 px-2">
                 <button className="inline-flex items-center text-md">
                   <MdOutlineChair className="m-2" />
-                  Interior
+                  Laptops
                 </button>
-              </li>
+              </li> */}
             </ul>
           </div>
         )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {data.map((item, index) => (
+        {filteredWithSearch(data).map((item, index) => (
           <Card key={index} data={item} />
         ))}
       </div>

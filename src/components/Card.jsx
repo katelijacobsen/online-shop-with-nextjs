@@ -5,7 +5,6 @@ import Image from "next/image";
 
 const Card = ({ data }) => {
   // Note : Når du skal lave en Image-Komponent så husk at give den en array.
-  console.log(data.images);
 
   return (
     <>
