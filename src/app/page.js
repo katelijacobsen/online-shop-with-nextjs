@@ -20,14 +20,14 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center px-12">
-      {data.length > 0 && (
+      {/* {data.length > 0 && (
         <Image
-          src="" 
+          src="https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png" 
           width={200}
           height={200}
           alt="Picture of the Product"
         />
-      )}
+      )} */}
       <motion.h1
         ref={ref}
         initial={{ filter: "blur(20px)", opacity: 0 }}
