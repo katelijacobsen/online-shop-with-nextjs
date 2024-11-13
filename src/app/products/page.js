@@ -54,7 +54,6 @@ const Products = () => {
             allProducts.push(p);
           });
         });
-        console.log(allProducts);
 
         let unique = [];
         allProducts.forEach((p) => {
