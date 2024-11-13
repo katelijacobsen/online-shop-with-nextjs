@@ -2,15 +2,32 @@
 import Image from "next/image";
 import PrimaryBtn from "@/components/PrimaryBtn";
 import { motion, useInView } from "framer-motion";
+import { useEffect, useState } from "react";
 import * as React from "react";
 
 export default function Home() {
+  const [data, setData] = useState([null]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("dummyjson.com/image");
+      const data = await res.json();
+      setData(data);
+    };
+    fetchData();
+  }, []);
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center px-12">
-      <Image src="" width={200} height={200} alt="Picture of the Product" />
+      {data.length > 0 && (
+        <Image
+          src="" 
+          width={200}
+          height={200}
+          alt="Picture of the Product"
+        />
+      )}
       <motion.h1
         ref={ref}
         initial={{ filter: "blur(20px)", opacity: 0 }}
