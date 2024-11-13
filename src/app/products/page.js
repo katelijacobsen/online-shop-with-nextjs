@@ -28,7 +28,6 @@ const categories = [
 
 const Products = () => {
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
 
