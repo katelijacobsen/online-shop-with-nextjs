@@ -8,6 +8,7 @@ import { MdPets } from "react-icons/md";
 import { GiLipstick } from "react-icons/gi";
 import { MdOutlineChair } from "react-icons/md";
 import { LuFilter } from "react-icons/lu";
+import { Image } from "next/image";
 
 const Products = () => {
   //Fetch Data
@@ -23,7 +24,7 @@ const Products = () => {
   }, []);
 
   //Search after Product
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState([]);
   //funtion for the search input
   //Prevent Default
   const handleSearch = (e) => {
@@ -32,18 +33,17 @@ const Products = () => {
   //Use for the hook down as next step:
   useEffect(() => {
     const fetchSearchProducts = async () => {
-      const res = await fetch("https://dummyjson.com/products/search?q=phone");
+      const res = await fetch(
+        `https://dummyjson.com/products/search?q=${search}`
+      );
       const search = await res.json();
       setData(search.products);
     };
 
     if (search) {
       fetchSearchProducts();
-    } else fetchSearchProducts();
+    } else fetchAllProducts();
   }, [search]);
-
-
-
 
   //Toggle Button
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -140,9 +140,6 @@ const Card = ({ data }) => {
               {data.title}
             </h5>
           </a>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {data.description}
-          </p>
           <Link
             href="#"
             className="inline-flex items-center bg-gradient-to-br from-green-400 to-green-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2.5 text-center me-2 mb-2 transition-all duration-300 ease-in-out transform hover:scale-105"
