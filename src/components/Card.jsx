@@ -1,6 +1,7 @@
 "use client";
 import { TbShoppingBagPlus } from "react-icons/tb";
 import Image from "next/image";
+import Link from "next/link";
 
 const Card = ({ data, onAddToCart }) => {
   // Note : Når du skal lave en Image-Komponent så husk at give den en array.
@@ -8,7 +9,7 @@ const Card = ({ data, onAddToCart }) => {
   return (
     <>
       <div className="max-w-sm border border-gray-200 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-        <div className="flex justify-end px-4 pt-4">
+        <Link href={`/products/${data.id}`} className="flex justify-end px-4 pt-4">
           <Image
             src={
               data.thumbnail.length > 0
@@ -21,7 +22,7 @@ const Card = ({ data, onAddToCart }) => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="w-30 h-36 object-contain "
           />
-        </div>
+        </Link>
         <div className="p-5">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {data.title}
