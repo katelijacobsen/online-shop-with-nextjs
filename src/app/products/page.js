@@ -7,7 +7,11 @@ import CategoryItem from "@/components/CategoryItem";
 import { IoMdPhonePortrait } from "react-icons/io";
 import { FaTabletAlt } from "react-icons/fa";
 import { LiaLaptopSolid } from "react-icons/lia";
-
+import ShoppingCart from "@/components/ShoppingCart";
+//=====================================================//
+// Online shop er kategoriseret som elektronik-shop.
+// Der blevet sat fokus kun på salg på tre lags enheder.
+//=====================================================//
 const categories = [
   {
     name: "Smartphones",
@@ -25,11 +29,23 @@ const categories = [
     icon: <LiaLaptopSolid />,
   },
 ];
+//============================================================//
+// Lidt kompliseret DOM-manipulation, bare for en enkelt ting...
+//============================================================//
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
+
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
 
   useEffect(() => {
     const _fetchProductsByCategory = async (tag) => {
@@ -89,12 +105,16 @@ const Products = () => {
       return data;
     }
 
-    return data.filter(p => {
+    return data.filter((p) => {
       let include = false;
-      if(p.title.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
-      else if(p.description.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
-      else if(p.category.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
-      else if(p.brand.toLowerCase().includes(search.toLocaleLowerCase())) include = true;
+      if (p.title.toLowerCase().includes(search.toLocaleLowerCase()))
+        include = true;
+      else if (p.description.toLowerCase().includes(search.toLocaleLowerCase()))
+        include = true;
+      else if (p.category.toLowerCase().includes(search.toLocaleLowerCase()))
+        include = true;
+      else if (p.brand.toLowerCase().includes(search.toLocaleLowerCase()))
+        include = true;
       return include;
     });
   };
@@ -106,19 +126,15 @@ const Products = () => {
     setDropdownVisible(!isDropdownVisible);
   };
 
-
   return (
-    <>
+    <main className="bg-gray-200 dark:bg-gray-900">
       <h1 className="px-4 py-2 text-3xl">Products</h1>
       <div className="max-w-md mx-auto m-5 px-4">
         <div className="flex items-center">
-          <label htmlFor="productSearch" className="sr-only">
-            Search
-          </label>
           <button
             id="dropdownBtn"
             type="button"
-            className="flex-shrink-0 z-10 inline-flex items-center py-[11] px-4 text-xl text-center text-white border-cyan-500 bg-indigo-500 rounded-s-lg hover:bg-indigo-900 focus:ring-rose-400 dark:bg-indigo-700 dark:focus:ring-rose-700 dark:text-gray-200 dark:border-cyan-800"
+            className="flex-shrink-0 z-10 inline-flex items-center py-[11] px-4 text-xl text-center text-white border-cyan-500 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-s-lg hover:bg-indigo-900 focus:ring-rose-400 dark:bg-indigo-700 dark:focus:ring-rose-700 dark:text-gray-200 dark:border-cyan-800"
             onClick={toggleDropdown}
           >
             <LuFilter className="text-xl" />
@@ -187,12 +203,15 @@ const Products = () => {
           </div>
         )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {filteredWithSearch(data).map((item, index) => (
-          <Card key={index} data={item} />
-        ))}
+      <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredWithSearch(data).map((item, index) => (
+            <Card key={index} data={item} onAddToCart={addToCart} />
+          ))}
+        </div>
+        <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
       </div>
-    </>
+    </main>
   );
 };
 

@@ -19,7 +19,7 @@ export default function Home() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-12">
+    <main className="bg-gray-200 dark:bg-gray-900 flex min-h-screen flex-col items-center justify-center px-12">
       {/* {data.length > 0 && (
         <Image
           src="https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png" 
@@ -33,7 +33,7 @@ export default function Home() {
         initial={{ filter: "blur(20px)", opacity: 0 }}
         animate={isInView ? { filter: "blur(0px)", opacity: 1 } : {}}
         transition={{ duration: 1.2 }}
-        className="text-6xl font-bold text-white my-6"
+        className="text-6xl font-bold dark:text-white my-6"
       >
         Lorem Ipsum
       </motion.h1>

@@ -3,14 +3,14 @@ import Link from "next/link";
 
 
 const Header = () => {
-    return ( <header className="flex justify-between p-2 bg-gradient-to-br from-purple-600 to-blue-500">
+    return ( <header className="flex justify-between p-2 bg-gray-200 dark:bg-gray-900">
         <nav>
             <ul className="flex gap-4 flex-col  m-2 md:flex-row">
                 <li>
-                    <Link href="/">Home</Link>
+                    <Link href="/" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Home</Link>
                 </li>
                 <li>
-                    <Link href="/products">Products</Link>
+                    <Link href="/products" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Products</Link>
                 </li>
             </ul>
         </nav>
