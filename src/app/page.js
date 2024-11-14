@@ -4,6 +4,7 @@ import PrimaryBtn from "@/components/PrimaryBtn";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useState } from "react";
 import * as React from "react";
+import Link from "next/link";
 
 export default function Home() {
   const [data, setData] = useState([null]);
@@ -37,7 +38,9 @@ export default function Home() {
       >
         Lorem Ipsum
       </motion.h1>
-      <PrimaryBtn />
+      <Link href="/products">
+        <PrimaryBtn />
+      </Link>
     </main>
   );
 }
