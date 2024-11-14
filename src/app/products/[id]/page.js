@@ -1,9 +1,9 @@
-import { useRouter } from "next/router";
+'use client';
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const SingleProduct = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
