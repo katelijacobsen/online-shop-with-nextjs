@@ -152,10 +152,10 @@ const Products = () => {
           <button
             id="dropdownBtn"
             type="button"
-            className="flex-shrink-0 z-10 inline-flex items-center py-[11] px-4 text-xl text-center text-white border-cyan-500 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-s-lg hover:bg-indigo-900 focus:ring-rose-400 dark:bg-indigo-700 dark:focus:ring-rose-700 dark:text-gray-200 dark:border-cyan-800"
+            className="flex-shrink-0 z-10 inline-flex items-center py-3 px-4 text-xl text-center text-white border-cyan-500 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-s-lg hover:bg-indigo-900 focus:ring-rose-400 dark:bg-indigo-700 dark:focus:ring-rose-700 dark:text-gray-200 dark:border-cyan-800"
             onClick={toggleDropdown}
           >
-            <LuFilter className="text-xl" />
+            <LuFilter className="text-md" />
           </button>
           <div className="relative w-full">
             <input
