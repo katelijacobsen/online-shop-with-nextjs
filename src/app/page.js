@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import Link from "next/link";
 import ThreeScene from "@/components/Galaxy";
+import dynamic from 'next/dynamic';
+
+const ThreeScene = dynamic(() => import('@/components/ThreeScene'), { ssr: false });
 
 export default function Home() {
   const ref = React.useRef(null);
