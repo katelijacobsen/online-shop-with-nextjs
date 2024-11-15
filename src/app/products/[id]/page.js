@@ -1,10 +1,11 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import Image from "next/image";
 import Review from "@/components/Review";
+import { motion } from "framer-motion";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -43,14 +44,20 @@ const SingleProduct = () => {
           )}
         </div>
 
-        <div className="bg-gray-100 col-span-1 sm:col-span-1 lg:col-span-2 px-4 py-6">
-          <Link
-            href="/products"
-            className="my-4 self-start max-w-xs inline-flex items-center text-lg bg-indigo-500 rounded-full px-4 py-2 text-white hover:bg-indigo-700"
+        <div className="block overflow-hidden bg-gray-100 col-span-1 sm:col-span-1 lg:col-span-2 px-4 py-6">
+          <motion.div
+          whileHover={{ scale: 1.05, x: 20 }}
+          whileTap={{ scale: 0.9, x:0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <FaArrowLeft />
-            Back
-          </Link>
+            <Link
+              href="/products"
+              className="my-4 self-start max-w-xs inline-flex items-center text-lg bg-indigo-500 rounded-full px-4 py-2 text-white hover:bg-indigo-700"
+            >
+              <FaArrowLeft className="mr-2 flex-shrink-0"/>
+              Back
+            </Link>
+          </motion.div>
           <div className="flex flex-col gap-4">
             <h1 className="font-bold text-2xl sm:text-3xl">{product.title}</h1>
             <p className="text-xl font-medium">Price: ${product.price}</p>

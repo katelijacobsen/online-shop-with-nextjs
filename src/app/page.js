@@ -38,9 +38,15 @@ export default function Home() {
       >
         Lorem Ipsum
       </motion.h1>
-      <Link href="/products">
-        <PrimaryBtn />
-      </Link>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 2, stiffness: 200, damping: 20, type: "spring" }}
+      >
+        <Link href="/products">
+          <PrimaryBtn />
+        </Link>
+      </motion.div>
     </main>
   );
 }

@@ -11,7 +11,7 @@ const Review = ({ review }) => {
 
 
   return (
-    <div class="max-w-screen-md mx-8">
+    <div className="max-w-screen-md mx-8">
       <div className="flex">
 
       {[...Array(stars)].map((i) => (
@@ -24,13 +24,13 @@ const Review = ({ review }) => {
         ))}
         </div>
       <blockquote>
-        <p class="text-md font-semibold text-gray-900 dark:text-white">
+        <p className="text-md font-semibold text-gray-900 dark:text-white">
           {review.comment}
         </p>
       </blockquote>
-      <figcaption class="flex items-center mt-2 space-x-3 rtl:space-x-reverse">
-        <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
-          <cite class="pe-3 text-gray-900 dark:text-white">
+      <figcaption className="flex items-center mt-2 space-x-3 rtl:space-x-reverse">
+        <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
+          <cite className="pe-3 text-gray-900 dark:text-white">
             {review.reviewerName}
           </cite>
         </div>
