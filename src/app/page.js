@@ -7,15 +7,15 @@ import * as React from "react";
 import Link from "next/link";
 
 export default function Home() {
-  const [data, setData] = useState([null]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("dummyjson.com/image");
-      const data = await res.json();
-      setData(data);
-    };
-    fetchData();
-  }, []);
+  // const [data, setData] = useState([null]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await fetch("dummyjson.com/image");
+  //     const data = await res.json();
+  //     setData(data);
+  //   };
+  //   fetchData();
+  // }, []);
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
 

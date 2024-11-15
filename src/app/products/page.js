@@ -8,7 +8,7 @@ import { IoMdPhonePortrait } from "react-icons/io";
 import { FaTabletAlt } from "react-icons/fa";
 import { LiaLaptopSolid } from "react-icons/lia";
 import ShoppingCart from "@/components/ShoppingCart";
-import {motion, AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 //=====================================================//
 // Online shop er kategoriseret som elektronik-shop.
 // Der blevet sat fokus kun på salg på tre lags enheder.
@@ -43,6 +43,7 @@ const Products = () => {
   const [search, setSearch] = useState("");
   const [cart, setCart] = useState([]);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState();
 
   const addToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]);
@@ -60,11 +61,11 @@ const Products = () => {
       const data = await res.json();
       return data.products;
     };
-//============================================================//
-// 
-// Den del har jeg fået hjælp til at kunne få en mere niche
-// kategori.
-//============================================================//
+    //============================================================//
+    //
+    // Den del har jeg fået hjælp til at kunne få en mere niche
+    // kategori.
+    //============================================================//
 
     const fetchAllProducts = async () => {
       let promises = [];
@@ -72,7 +73,6 @@ const Products = () => {
         promises.push(_fetchProductsByCategory(c.tag));
       });
       Promise.all(promises).then((results) => {
-
         let allProducts = [];
         results.map((products) => {
           products.forEach((p) => {
@@ -107,9 +107,9 @@ const Products = () => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-//============================================================//
-// Her gør jeg det UX venlig for søgningen.
-//============================================================//
+  //============================================================//
+  // Her gør jeg det UX venlig for søgningen.
+  //============================================================//
 
   const filteredWithSearch = (data) => {
     if (search === "") {
@@ -128,6 +128,16 @@ const Products = () => {
         include = true;
       return include;
     });
+  };
+
+  //============================================================//
+  // Events & Animationer.
+  //============================================================//
+
+  const imageAnimation = {
+    initial: { scale: 1, opacity: 0 },
+    animate: { scale: 1.1, opacity: 1, transition: { duration: 0.5 } },
+    exit: { scale: 0.8, opacity: 0, transition: { duration: 0.5 } },
   };
 
   const toggleDropdown = () => {
@@ -210,6 +220,7 @@ const Products = () => {
             </ul>
           </div>
         )}
+      <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
       </div>
       <div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -217,7 +228,7 @@ const Products = () => {
             <Card key={index} data={item} onAddToCart={addToCart} />
           ))}
         </div>
-        <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
+        
       </div>
     </main>
   );
