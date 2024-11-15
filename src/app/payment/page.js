@@ -1,20 +1,31 @@
 'use client';
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 
 const Payment = () => {
     const searchParams = useSearchParams();
-    const itemsParam = searchParams.get('items');
+    const params = searchParams.get('items');
+    const itemIds = params.split(',');
+    console.log(itemIds);
+    
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+      const fetchItem = async (id) => {
+        const res = await fetch (`https://dummyjson.com/products/${id}`);
+        const item = await res.json();
+        return item
+      }
+
+      Promise.all(itemIds.map(id => fetchItem(id))).then(values => {
+        setItems(values);
+      });
+    }, []);
+    
 
 
-    //========//
-    //  Array
-    //========//
-    const items = itemsParam ? itemsParam.split(',').map(item => {
-        const [title, price, thumbnail] = item.split('-');
-        return {title, price, thumbnail};
-    }) : [];
     //========//
     //  Total
     //========//

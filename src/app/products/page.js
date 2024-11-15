@@ -8,9 +8,12 @@ import { IoMdPhonePortrait } from "react-icons/io";
 import { FaTabletAlt } from "react-icons/fa";
 import { LiaLaptopSolid } from "react-icons/lia";
 import ShoppingCart from "@/components/ShoppingCart";
+import {motion, AnimatePresence} from "framer-motion";
 //=====================================================//
 // Online shop er kategoriseret som elektronik-shop.
 // Der blevet sat fokus kun på salg på tre lags enheder.
+// Med en liste af objekter kan vi senere
+// manipulere DOM fra DummyJSON.
 //=====================================================//
 const categories = [
   {
@@ -31,6 +34,7 @@ const categories = [
 ];
 //============================================================//
 // Lidt kompliseret DOM-manipulation, bare for en enkelt ting...
+// Her laver jeg async til sync med Promise.
 //============================================================//
 
 const Products = () => {
@@ -38,6 +42,7 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
   const [cart, setCart] = useState([]);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const addToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]);
@@ -55,6 +60,11 @@ const Products = () => {
       const data = await res.json();
       return data.products;
     };
+//============================================================//
+// 
+// Den del har jeg fået hjælp til at kunne få en mere niche
+// kategori.
+//============================================================//
 
     const fetchAllProducts = async () => {
       let promises = [];
@@ -62,7 +72,6 @@ const Products = () => {
         promises.push(_fetchProductsByCategory(c.tag));
       });
       Promise.all(promises).then((results) => {
-        console.log(results);
 
         let allProducts = [];
         results.map((products) => {
@@ -98,8 +107,10 @@ const Products = () => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+//============================================================//
+// Her gør jeg det UX venlig for søgningen.
+//============================================================//
 
-  //Filter Funktion
   const filteredWithSearch = (data) => {
     if (search === "") {
       return data;
@@ -119,15 +130,12 @@ const Products = () => {
     });
   };
 
-  //Toggle Button
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
   };
 
   return (
-    <main className="bg-gray-200 dark:bg-gray-900">
+    <main className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-white">
       <h1 className="px-4 py-2 text-3xl">Products</h1>
       <div className="max-w-md mx-auto m-5 px-4">
         <div className="flex items-center">

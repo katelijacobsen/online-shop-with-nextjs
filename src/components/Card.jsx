@@ -23,7 +23,7 @@ const Card = ({ data, onAddToCart }) => {
             className="w-30 h-36 object-contain "
           />
         </Link>
-        <div className="p-5">
+        <div className="p-5 text-gray-900 dark:text-white">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {data.title}
             </h5>
