@@ -194,6 +194,7 @@ const ThreeScene = () => {
     }
     }, []);
     
+    return <canvas className="webgl"></canvas>;
   };
   
   export default ThreeScene;
