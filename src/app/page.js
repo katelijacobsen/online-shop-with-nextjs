@@ -24,7 +24,7 @@ export default function Home() {
         transition={{ duration: 1.2 }}
         className="text-6xl font-bold dark:text-white my-6 z-10"
         >
-        NextWave Electronics
+        Saturn Electronics
       </motion.h1>
       
       <motion.div
