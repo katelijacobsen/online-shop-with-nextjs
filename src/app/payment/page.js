@@ -1,12 +1,12 @@
 'use client';
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
 const Payment = () => {
   const searchParams = useSearchParams();
   const params = searchParams.get('items');
-  const itemIds = params.split(',');
+  const itemIds = params ? params.split(',') : [];
   console.log(itemIds);
   
   const [items, setItems] = useState([]);
@@ -18,14 +18,13 @@ const Payment = () => {
       return item;
     };
 
-    Promise.all(itemIds.map(id => fetchItem(id))).then(values => {
-      setItems(values);
-    });
-  }, []);
+    if (itemIds.length > 0) {
+      Promise.all(itemIds.map(id => fetchItem(id))).then(values => {
+        setItems(values);
+      });
+    }
+  }, [itemIds]);
 
-  //========//
-  //  Total
-  //========//
   const totalSum = items.reduce((sum, item) => sum + parseInt(item.price), 0);
 
   return (
@@ -65,6 +64,12 @@ const Payment = () => {
       </div>
     </>
   );
-}
+};
 
-export default Payment;
+export default function PaymentPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Payment />
+    </Suspense>
+  );
+}
