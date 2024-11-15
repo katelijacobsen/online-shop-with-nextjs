@@ -19,8 +19,8 @@ const Review = ({ review }) => {
       ))}
          {hasHalfStar && <FaStarHalfStroke className="text-yellow-400" />}
         
-        {[...Array(emptyStars)].map((i) => (
-          <FaRegStar key={i} className="text-yellow-400" />
+        {[...Array(emptyStars)].map((index) => (
+          <FaRegStar key={index} className="text-yellow-400" />
         ))}
         </div>
       <blockquote>

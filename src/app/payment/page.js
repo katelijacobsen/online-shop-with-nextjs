@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 
-const Payment = () => {
+const Payment = ({...props}) => {
     const searchParams = useSearchParams();
     const params = searchParams.get('items');
     const itemIds = params.split(',');
@@ -39,7 +39,7 @@ const Payment = () => {
                 <div className="col-span-2 flex items-center gap-4">
                   <div className="w-24 h-24 bg-white p-2 rounded-md">
                     <Image
-                      src={item.thumbnail}
+                      src={item.images[0]}
                       alt={item.title}
                       width={100}
                       height={100}
