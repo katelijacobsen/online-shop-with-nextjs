@@ -1,9 +1,9 @@
-'use client';
+"use client";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import  { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 const geistSans = localFont({
@@ -25,12 +25,19 @@ const pageTransition = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
   exit: { opacity: 0 },
-  transition: { duration: 1, ease: "easeInOut", type:"spring", stiffness: 400, damping: 10 },
+  transition: {
+    duration: 40,
+    delay: 5,
+    ease: "easeInOut",
+    type: "spring",
+    stiffness: 400,
+    damping: 10,
+  },
 };
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  
+
   return (
     <html lang="en">
       <body
@@ -38,16 +45,16 @@ export default function RootLayout({ children }) {
       >
         <Header />
         <AnimatePresence mode="wait">
-        <motion.div
-        key={pathname}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={pageTransition}>
-
-        {children}
-        </motion.div>
-      <Footer/>
+          <motion.div
+            key={pathname}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={pageTransition}
+          >
+            {children}
+          </motion.div>
+          <Footer />
         </AnimatePresence>
       </body>
     </html>

@@ -15,6 +15,31 @@ import { motion, AnimatePresence } from "framer-motion";
 // Med en liste af objekter kan vi senere
 // manipulere DOM fra DummyJSON.
 //=====================================================//
+const transition = {
+  initial: { scaleX: 0, opacity: 0 },
+  animate: {
+    scaleX: 1,
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1,
+      type: "spring",
+      stiffness: 400,
+      damping: 20,
+    },
+  },
+  exit: {
+    scaleX: 0,
+    opacity: 0,
+    transition: {
+      duration: 0.8, 
+      type: "spring",
+      stiffness: 400,
+      damping: 20,
+    },
+  },
+};
+
 const categories = [
   {
     name: "Smartphones",
@@ -142,7 +167,14 @@ const Products = () => {
     <main className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-white">
       <h1 className="px-4 py-2 text-3xl">Products</h1>
       <div className="max-w-md mx-auto m-5 px-4">
-        <div className="flex items-center">
+        <motion.div
+          className="flex items-center"
+          // initial="initial"
+          // animate="animate"
+          // exit="exit"
+          // variants={transition}
+          // style={{ originX: 0.5 }}
+        >
           <button
             id="dropdownBtn"
             type="button"
@@ -161,7 +193,7 @@ const Products = () => {
               className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
             />
           </div>
-        </div>
+        </motion.div>
         {isDropdownVisible && (
           <div className="z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul>
@@ -214,7 +246,7 @@ const Products = () => {
             </ul>
           </div>
         )}
-      <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
+        <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
       </div>
       <div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -222,7 +254,6 @@ const Products = () => {
             <Card key={index} data={item} onAddToCart={addToCart} />
           ))}
         </div>
-        
       </div>
     </main>
   );
