@@ -8,8 +8,12 @@ import Review from "@/components/Review";
 import { motion } from "framer-motion";
 
 const SingleProduct = () => {
-  const { id } = useParams();
-  console.log(id);
+  const { id: path } = useParams();
+
+  const [id] = useState(path.split('-').slice(-1)[0])
+  const [title] = useState(path.split('-').slice(0, -1).join('-'));
+
+  console.log({id, title});
 
   const [product, setProduct] = useState(null);
 

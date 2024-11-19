@@ -9,7 +9,7 @@ const Card = ({ data, onAddToCart }) => {
   return (
     <>
       <div className="max-w-sm border border-gray-200 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-        <Link href={`/products/${data.id}`} className="flex justify-end px-4 pt-4">
+        <Link href={`/products/${data.title.replace(' ', '-')}-${data.id}`} className="flex justify-end px-4 pt-4">
           <Image
             src={
               data.thumbnail.length > 0
