@@ -8,12 +8,17 @@ import Review from "@/components/Review";
 import { motion } from "framer-motion";
 
 const SingleProduct = () => {
-  const { id: path } = useParams();
 
-  const [id] = useState(path.split('-').slice(-1)[0])
-  const [title] = useState(path.split('-').slice(0, -1).join('-'));
+// === Manipulate URL-Parameter === // 
+const { id: path } = useParams();
+const [id] = useState(path.split('-').slice(-1)[0])
+const [title] = useState(path.split('-').slice(0, -1).join('-'));
 
-  console.log({id, title});
+// =================================================================== // 
+// Derefter manipulere vi inde i vores Link Komponent i Card.jsx
+// =================================================================== // 
+
+console.log({id, title});
 
   const [product, setProduct] = useState(null);
 
