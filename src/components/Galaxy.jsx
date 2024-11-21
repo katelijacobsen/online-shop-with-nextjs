@@ -28,8 +28,8 @@ const ThreeScene = () => {
           canvas.width / 2
         );
         
-        gradient.addColorStop(0, "#F1DFE3");
-        gradient.addColorStop(1, "#becef0");
+        gradient.addColorStop(0, "#fff");
+        gradient.addColorStop(1, "#fff");
         
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);

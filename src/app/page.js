@@ -22,7 +22,7 @@ export default function Home() {
         initial={{ filter: "blur(20px)", opacity: 0 }}
         animate={isInView ? { filter: "blur(0px)", opacity: 1 } : {}}
         transition={{ duration: 1.2 }}
-        className="text-6xl font-bold dark:text-white my-6 z-10"
+        className="text-6xl font-bold text-gray-900 my-6 z-10"
         >
         Saturn Electronics
       </motion.h1>

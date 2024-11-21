@@ -44,7 +44,6 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900 dark:text-white`}
       >
         <Header />
-        <AnimatePresence mode="wait">
           <motion.div
             key={pathname}
             initial="initial"
@@ -55,7 +54,6 @@ export default function RootLayout({ children }) {
             {children}
           </motion.div>
           <Footer />
-        </AnimatePresence>
       </body>
     </html>
   );
