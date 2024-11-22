@@ -49,9 +49,9 @@ const ShoppingCart = ({ cart, removeFromCart }) => {
                     <div className="max-w-xs mx-auto">
                       <label
                         htmlFor="quantity-input"
-                        className="block text-sm font-medium text-gray-900 dark:text-white"
+                        className="block text-xs text-gray-900 dark:text-white opacity-0"
                       >
-                        Choose quantity:
+                        Quantity
                       </label>
                       <div className="relative flex items-center">
                         <button
@@ -60,7 +60,7 @@ const ShoppingCart = ({ cart, removeFromCart }) => {
                           data-input-counter-decrement="quantity-input"
                           className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
                         >
-                          <FaMinus />
+                          <FaMinus className="text-xs"/>
                         </button>
                         <input
                           type="text"
@@ -75,9 +75,9 @@ const ShoppingCart = ({ cart, removeFromCart }) => {
                           type="button"
                           id="increment-button"
                           data-input-counter-increment="quantity-input"
-                          clasName="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                          className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
                         >
-                          <FaPlus />
+                          <FaPlus className="text-xs"/>
                         </button>
                       </div>
                     </div>

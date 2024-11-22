@@ -11,7 +11,7 @@ const Review = ({ review }) => {
 
 
   return (
-    <div className="max-w-screen-md mx-8">
+    <div className="max-w-screen-md mx-8 py-40">
       <div className="flex">
 
       {[...Array(stars)].map((i) => (
