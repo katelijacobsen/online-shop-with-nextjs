@@ -2,14 +2,14 @@
 import { TbShoppingBagPlus } from "react-icons/tb";
 import Image from "next/image";
 import Link from "next/link";
+import { productURL } from "@/app/helpers/productURL";
 
 const Card = ({ data, onAddToCart }) => {
   // Note : Når du skal lave en Image-Komponent så husk at give den en array.
-
   return (
     <>
       <div className="max-w-sm border border-gray-200 bg-gray-100 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-        <Link href={`/products/${data.title.replace(' ', '-')}-${data.id}`} className="flex justify-end px-4 pt-4">
+        <Link href={`/products/${productURL(data)}`} className="flex justify-end px-4 pt-4">
           <Image
             src={
               data.thumbnail.length > 0

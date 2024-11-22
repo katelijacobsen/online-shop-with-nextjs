@@ -11,6 +11,7 @@ import ShoppingCart from "@/components/ShoppingCart";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbShoppingBag } from "react-icons/tb";
 import Cart from "@/app/store/Cart";
+import { categories } from "../categories";
 //=====================================================//
 // Online shop er kategoriseret som elektronik-shop.
 // Der blevet sat fokus kun på salg på tre lags enheder.
@@ -42,23 +43,6 @@ const transition = {
   },
 };
 
-const categories = [
-  {
-    name: "Smartphones",
-    tag: "smartphones",
-    icon: <IoMdPhonePortrait />,
-  },
-  {
-    name: "Tablets",
-    tag: "tablets",
-    icon: <FaTabletAlt />,
-  },
-  {
-    name: "Laptops",
-    tag: "laptops",
-    icon: <LiaLaptopSolid />,
-  },
-];
 //============================================================//
 // Lidt kompliseret DOM-manipulation, bare for en enkelt ting...
 // Her laver jeg async til sync med Promise.
@@ -180,7 +164,7 @@ const Products = () => {
         <h1 className="text-3xl">Products</h1>
        
       </header>
-      <section className="max-w-md mx-auto m-5 px-4">
+      {/* <section className="max-w-md mx-auto m-5 px-4">
         <motion.div className="flex items-center">
           <button
             id="dropdownBtn"
@@ -223,7 +207,7 @@ const Products = () => {
             </ul>
           </nav>
         )}
-      </section>
+      </section> */}
       <section>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">

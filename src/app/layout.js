@@ -41,6 +41,8 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
   const { cart, toggleVisible, visible, removeFromCart } = Cart();
 
+  
+
   return (
     <html lang="en">
       <body

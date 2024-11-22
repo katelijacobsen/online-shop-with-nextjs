@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Cart from "@/app/store/Cart";
 import { TbShoppingBag } from "react-icons/tb";
+import Searchbar from "./Searchbar";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,11 +22,11 @@ const Header = () => {
         </button>
       </div>
       <nav
-        className={`w-full md:flex md:items-center ${
+        className={` md:flex md:items-center ${
           isMobileMenuOpen ? "block" : "hidden"
         } md:block`}
       >
-        <ul className="flex flex-row md:flex-row gap-4 m-2 md:gap-6">
+        <ul className="flex flex-row md:flex-row gap-4 m-2 md:gap-6 items-center ">
           <li>
             <Link
               href="/"
@@ -42,21 +43,21 @@ const Header = () => {
               Products
             </Link>
           </li>
-          <li>
-            <button
-              onClick={toggleVisible}
-              className="relative flex items-center justify-center w-10 h-10 bg-indigo-700 text-white rounded-full"
-            >
-              <TbShoppingBag />
-              {cart.length > 0 && (
-                <span className="absolute w-5 h-5 -top-2 -right-2 bg-indigo-500 text-white text-sm rounded-full  flex items-center justify-center">
-                  {cart.length}
-                </span>
-              )}
-            </button>
-          </li>
+          <li></li>
         </ul>
       </nav>
+      <Searchbar />
+      <button
+        onClick={toggleVisible}
+        className="relative flex items-center justify-center w-10 h-10 bg-indigo-700 text-white rounded-full"
+      >
+        <TbShoppingBag className="text-2xl" />
+        {cart.length > 0 && (
+          <span className="absolute w-5 h-5 -top-2 -right-2 bg-indigo-500 text-white text-sm rounded-full  flex items-center justify-center">
+            {cart.length}
+          </span>
+        )}
+      </button>
     </header>
   );
 };
