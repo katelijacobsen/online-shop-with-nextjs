@@ -6,12 +6,16 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 import Review from "@/components/Review";
 import { motion } from "framer-motion";
+import { TbShoppingBagPlus } from "react-icons/tb";
+import Cart from "@/app/store/Cart";
 
 const SingleProduct = () => {
   // === Manipulate URL-Parameter === //
   const { id: path } = useParams();
   const [id] = useState(path.split("-").slice(-1)[0]);
   const [title] = useState(path.split("-").slice(0, -1).join("-"));
+  const { cart, visible, toggleVisible, addToCart, removeFromCart, clearCart } =
+    Cart();
 
   // =================================================================== //
   // Derefter manipulere vi inde i vores Link Komponent i Card.jsx
@@ -55,14 +59,14 @@ const SingleProduct = () => {
 
   return (
     <>
-    <Link
-              href="/products"
-              className="my-4 self-start max-w-xs mx-5 inline-flex items-center text-lg bg-indigo-500 rounded-full px-4 py-2 text-white hover:bg-indigo-700"
-            >
-              <FaArrowLeft className="mr-2 flex-shrink-0" />
-              Back
-            </Link>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <Link
+        href="/products"
+        className="my-4 self-start max-w-xs mx-5 inline-flex items-center text-lg bg-indigo-500 rounded-full px-4 py-2 text-white hover:bg-indigo-700"
+      >
+        <FaArrowLeft className="mr-2 flex-shrink-0" />
+        Back
+      </Link>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9 ">
         <div className="flex justify-center col-span-1 sm:col-span-1 lg:col-span-1 p-5 relative">
           {product.images && (
             <motion.div
@@ -107,18 +111,21 @@ const SingleProduct = () => {
         </div>
 
         <div className="block overflow-hidden dark:bg-gray-900 bg-gray-100 col-span-1 sm:col-span-1 lg:col-span-2 px-4 py-6">
-          
-            
           <div className="flex flex-col gap-4">
-            <h1 className="font-bold text-2xl sm:text-3xl">{product.title}</h1>
-            <p className="text-xl font-medium">Price: ${product.price}</p>
-            <p className="text-base">{product.description}</p>
+            <h1 className="font-bold text-4xl sm:text-4xl">{product.title}</h1>
+            <p className="text-2xl font-medium">Price: ${product.price}</p>
+            <p className="text-xl w-2/3 ">{product.description}</p>
+            <button
+              onClick={() => addToCart(product)}
+              className="my-4 self-start max-w-xs inline-flex items-center text-lg bg-green-500 rounded-full px-4 py-2 text-white hover:bg-green-700"
+            >
+              <TbShoppingBagPlus className="mr-2 text-2xl flex-shrink-0" /> Add to Cart
+            </button>
           </div>
         </div>
-
-        <div className="col-span-1 sm:col-span-2 lg:col-span-3 px-4 py-6">
-          <h2 className="text-2xl font-bold mb-4">Reviews</h2>
-          <div className="flex flex-wrap gap-4">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-3 space-y-4">
+          <h2 className="text-2xl font-bold">Reviews</h2>
+          <div className="flex flex-wrap space-y-4">
             {product.reviews?.map((r, i) => (
               <Review key={i} review={r} />
             ))}
