@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
           variants={pageTransition}
         >
           {children}
-        </motion.div>
+        </motion.div> 
         <Footer />
         {visible && (
           <div className="fixed inset-0 z-50">
