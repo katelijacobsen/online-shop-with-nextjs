@@ -10,6 +10,7 @@ import { LiaLaptopSolid } from "react-icons/lia";
 import ShoppingCart from "@/components/ShoppingCart";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbShoppingBag } from "react-icons/tb";
+import Cart from "@/app/store/Cart";
 //=====================================================//
 // Online shop er kategoriseret som elektronik-shop.
 // Der blevet sat fokus kun på salg på tre lags enheder.
@@ -33,7 +34,7 @@ const transition = {
     scaleX: 0,
     opacity: 0,
     transition: {
-      duration: 0.8, 
+      duration: 0.8,
       type: "spring",
       stiffness: 400,
       damping: 20,
@@ -67,25 +68,26 @@ const Products = () => {
   const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
-  const [cart, setCart] = useState([]);
-  const [ visibleCart, setCartVisible] = useState(false);
+  // const [cart, setCart] = useState([]);
+  // const [ visibleCart, setCartVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState();
 
+  //tilføje zustand-hook
+  const { cart, visible, toggleVisible, addToCart, removeFromCart, clearCart } =
+    Cart();
 
-  const toggleCart = () => {
-    setCartVisible(!visibleCart);
-  }
+  // const toggleCart = () => {
+  //   setCartVisible(!visibleCart);
+  // }
 
+  // const addToCart = (product) => {
+  //   setCart((prevCart) => [...prevCart, product]);
+  // };
 
-
-  const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
-  };
-
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
-  };
+  // const removeFromCart = (productId) => {
+  //   setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  // };
 
   useEffect(() => {
     const _fetchProductsByCategory = async (tag) => {
@@ -174,88 +176,63 @@ const Products = () => {
 
   return (
     <main className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-white">
-  <header className="px-4 py-2 flex">
-    <h1 className="text-3xl">Products</h1>
-    <button
-            onClick={toggleCart}
-            className="relative flex items-center justify-center w-10 h-10 bg-indigo-700 text-white rounded-full"
+      <header className="px-4 py-2 flex">
+        <h1 className="text-3xl">Products</h1>
+       
+      </header>
+      <section className="max-w-md mx-auto m-5 px-4">
+        <motion.div className="flex items-center">
+          <button
+            id="dropdownBtn"
+            type="button"
+            className="flex-shrink-0 z-10 inline-flex items-center py-3 px-4 text-xl text-center text-white bg-indigo-700 rounded-l-lg hover:bg-indigo-900 focus:ring-rose-400"
+            onClick={toggleDropdown}
+            aria-expanded={isDropdownVisible}
+            aria-controls="dropdownMenu"
           >
-            <TbShoppingBag />
-            {cart.length > 0 && (
-              <span className="absolute w-5 h-5 -top-2 -right-2 bg-indigo-500 text-white text-sm rounded-full  flex items-center justify-center">
-                {cart.length}
-              </span>
-            )}
+            <LuFilter className="text-md" />
           </button>
-  </header>
-  <section className="max-w-md mx-auto m-5 px-4">
-    <motion.div className="flex items-center">
-      <button
-        id="dropdownBtn"
-        type="button"
-        className="flex-shrink-0 z-10 inline-flex items-center py-3 px-4 text-xl text-center text-white bg-indigo-700 rounded-l-lg hover:bg-indigo-900 focus:ring-rose-400"
-        onClick={toggleDropdown}
-        aria-expanded={isDropdownVisible}
-        aria-controls="dropdownMenu"
-      >
-        <LuFilter className="text-md" />
-      </button>
-      <input
-        value={search}
-        onChange={handleSearch}
-        type="text"
-        id="productSearch"
-        placeholder="Search for a product..."
-        className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-        aria-label="Search products"
-      />
-    </motion.div>
-    {isDropdownVisible && (
-      <nav
-        id="dropdownMenu"
-        className="z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-      >
-        <ul>
-          {categories.map((c) => (
-            <CategoryItem
-              key={c.tag}
-              category={c}
-              onSelect={(cat) =>
-                setSelectedCategory(cat.tag === selectedCategory ? "" : cat.tag)
-              }
-              checked={selectedCategory === c.tag}
-            />
+          <input
+            value={search}
+            onChange={handleSearch}
+            type="text"
+            id="productSearch"
+            placeholder="Search for a product..."
+            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+            aria-label="Search products"
+          />
+        </motion.div>
+        {isDropdownVisible && (
+          <nav
+            id="dropdownMenu"
+            className="z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+          >
+            <ul>
+              {categories.map((c) => (
+                <CategoryItem
+                  key={c.tag}
+                  category={c}
+                  onSelect={(cat) =>
+                    setSelectedCategory(
+                      cat.tag === selectedCategory ? "" : cat.tag
+                    )
+                  }
+                  checked={selectedCategory === c.tag}
+                />
+              ))}
+            </ul>
+          </nav>
+        )}
+      </section>
+      <section>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredWithSearch(data).map((item) => (
+            <Card key={item.id} data={item} onAddToCart={addToCart} />
           ))}
-        </ul>
-      </nav>
-    )}
-  </section>
-  <section>
-  {visibleCart && (
-        <div className="fixed inset-0 z-50">
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50"
-            onClick={toggleCart}
-          ></div>
-          <motion.div 
-          initial={{ x: "100%" }}
-          animate={{ x: 0 }}
-          exit={{ x: "100%" }}
-          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-
-          className="fixed top-0 right-0 w-full max-w-sm h-full bg-white dark:bg-gray-800 shadow-lg">
-            <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
-          </motion.div>
         </div>
-      )}
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {filteredWithSearch(data).map((item) => (
-        <Card key={item.id} data={item} onAddToCart={addToCart} />
-      ))}
-    </div>
-  </section>
-</main>
-
+      </section>
+    </main>
   );
 };
 
