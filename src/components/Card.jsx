@@ -28,13 +28,12 @@ const Card = ({ data, onAddToCart }) => {
               {data.title}
             </h5>
             <p>${data.price}</p>
-          <button
-            onClick={() => onAddToCart(data)}
-            className="flex text-gray-200 bg-green-600 border border-green-400 focus:outline-none hover:bg-green-500 focus:ring-4 focus:ring-green-100 font-bold rounded-full text-sm px-5 py-2.5 me-2 mb-2"
-          >
-            <TbShoppingBagPlus className=" text-2xl" />
-            
-          </button>
+            <button
+              onClick={() => onAddToCart(data)}
+              className="my-4 self-start max-w-xs inline-flex items-center text-lg bg-green-500 rounded-full px-4 py-2 text-white hover:bg-green-700"
+            >
+              <TbShoppingBagPlus className="mr-2 text-2xl flex-shrink-0" /> Add to Cart
+            </button>
         </div>
       </div>
     </>
