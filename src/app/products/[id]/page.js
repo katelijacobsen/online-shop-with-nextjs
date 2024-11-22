@@ -55,6 +55,13 @@ const SingleProduct = () => {
 
   return (
     <>
+    <Link
+              href="/products"
+              className="my-4 self-start max-w-xs mx-5 inline-flex items-center text-lg bg-indigo-500 rounded-full px-4 py-2 text-white hover:bg-indigo-700"
+            >
+              <FaArrowLeft className="mr-2 flex-shrink-0" />
+              Back
+            </Link>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex justify-center col-span-1 sm:col-span-1 lg:col-span-1 p-5 relative">
           {product.images && (
@@ -101,13 +108,7 @@ const SingleProduct = () => {
 
         <div className="block overflow-hidden dark:bg-gray-900 bg-gray-100 col-span-1 sm:col-span-1 lg:col-span-2 px-4 py-6">
           
-            <Link
-              href="/products"
-              className="my-4 self-start max-w-xs inline-flex items-center text-lg bg-indigo-500 rounded-full px-4 py-2 text-white hover:bg-indigo-700"
-            >
-              <FaArrowLeft className="mr-2 flex-shrink-0" />
-              Back
-            </Link>
+            
           <div className="flex flex-col gap-4">
             <h1 className="font-bold text-2xl sm:text-3xl">{product.title}</h1>
             <p className="text-xl font-medium">Price: ${product.price}</p>

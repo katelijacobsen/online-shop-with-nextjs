@@ -108,13 +108,13 @@ const Searchbar = () => {
           type="text"
           id="productSearch"
           placeholder="Search for a product..."
-          className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-100 rounded-r-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          className="block p-2.5 w-3/4 z-20 text-sm text-gray-900 bg-gray-100 rounded-r-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           aria-label="Search products"
         />
       </motion.div>
       {searching && (
-        <div className="absolute bg-gray-900 py-2 w-3/4 text-yellow-400 z-20">
-          <ul className="flex flex-col max-h-96  overflow-y-scroll [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+        <div className="absolute bg-gray-900 rounded-md border border-gray-700 py-2 w-3/4 textg-gray-200 z-20">
+          <ul className="flex flex-col max-h-96 overflow-y-scroll [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
             {productResults.map((product, i) => {
               return (
                 <ProductResult
